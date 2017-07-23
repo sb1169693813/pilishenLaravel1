@@ -14,6 +14,8 @@
 //projects
 Route::resource('projects', 'ProjectsController');
 //tasks
+Route::get('tasks/charts', 'TaskController@chart')->name('tasks.charts');
+
 Route::resource('tasks', 'TaskController');
 Route::post('tasks/{task}/check', 'TaskController@check')->name('tasks.check');
 Route::get('/', 'HomeController@welcome')->name('/');

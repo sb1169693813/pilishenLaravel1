@@ -5732,7 +5732,7 @@ button.close {
 
 .thumbnail {
   position: relative;
-  padding: 0px; }
+  padding: 0; }
   .thumbnail .icon-bar {
     width: 100%;
     background-color: #dff0d8;
@@ -5752,7 +5752,7 @@ button.close {
       .thumbnail .icon-bar li .fa-btn {
         color: #d9534f; }
   .thumbnail .caption {
-    padding: 0px; }
+    padding: 0; }
     .thumbnail .caption a {
       color: black; }
 
@@ -5764,6 +5764,7 @@ button.close {
   height: 137px;
   line-height: 1.42857;
   margin-bottom: 20px;
+  padding: 4px;
   transition: border 0.2s ease-in-out 0s; }
   .project-modal .modal-trigger {
     display: block;
@@ -5772,10 +5773,25 @@ button.close {
     .project-modal .modal-trigger .fa-btn {
       margin-right: 0; }
 
-.tasks-tips .first-cell {
+.tasks-tabs .date-cell {
+  width: 8em; }
+
+.tasks-tabs .first-cell {
   padding-left: 4em; }
 
-.tasks-tips .icon-cell {
+.tasks-tabs .icon-cell {
   width: 4em; }
+
+.form-inline-fullwidth .form-control {
+  width: 100%; }
+
+.footerdiv {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 8rem;
+  margin-top: 30px;
+  padding-top: 1.5em;
+  background-color: #e1e1e8; }
 
 /*# sourceMappingURL=app.css.map */

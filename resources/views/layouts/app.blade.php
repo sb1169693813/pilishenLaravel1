@@ -48,6 +48,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('tasks.index') }}">所有任务</a></li>
+                    <li>{{ link_to_route('tasks.charts','图标统计') }}</li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -74,6 +75,24 @@
 
     @yield('content')
 
+    <div class="clearfix"></div>
+    <footer class="footerdiv">
+        <div class="container">
+            当前总共有{{ $total }}任务，已完成{{ $doneCount }}个，未完成{{ $toDoCount }}个
+        </div>
+    </footer>
+
+    <style media="screen">
+      .footerdiv {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        min-height: 8rem;
+        margin-top: 30px ;
+        padding-top: 1.5em;
+        background-color: #e1e1e8;
+      }
+    </style>
     <!-- JavaScripts -->
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>

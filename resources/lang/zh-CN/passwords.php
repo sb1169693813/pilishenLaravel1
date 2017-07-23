@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
+    | Password Reminder Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => '密码必须至少6个字符,匹配的确认。',
-    'reset' => '你的密码已经重置!',
-    'sent' => '我们有电子邮件你的密码重置链接!',
-    'token' => '这个密码重置令牌是无效的。',
-    'user' => "我们不能找到一个用户的电子邮件地址。",
+    'password' => '密码至少是六位字符并且匹配。',
+    'reset'    => '密码重置成功！',
+    'sent'     => '密码重置邮件已发送！',
+    'token'    => '密码重置令牌无效。',
+    'user'     => '找不到该邮箱对应的用户。',
 
 ];

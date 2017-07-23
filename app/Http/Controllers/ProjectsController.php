@@ -11,6 +11,7 @@ use App\Http\Requests\CreateProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Project;
 use Auth;
+// use Carbon\Carbon;
 
 class ProjectsController extends Controller
 {
@@ -61,6 +62,7 @@ class ProjectsController extends Controller
      */
     public function show($name)
     {
+        // return Carbon::today()->subWeek();
         $project = Auth::user()->projects()->where('name',$name)->first();
         $toDo = $project->tasks()->where('completed', 0)->get();
         $done = $project->tasks()->where('completed', 1)->get();

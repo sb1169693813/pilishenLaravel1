@@ -10,9 +10,17 @@ use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Auth;
 use App\Project;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
+  protected $repo;
+
+  public function __construct(TaskRepository $taskRepo)
+  {
+    $this->repo = $taskRepo;
+  }
+
     /**
      * Display a listing of the resource.
      *
@@ -109,5 +117,16 @@ class TaskController extends Controller
     {
         Task::findOrFail($id)->delete();
         return redirect()->back();
+    }
+
+    public function chart()
+    {
+      $total = $this->repo->total();
+      $doneCount = $this->repo->doneCount();
+      $toDoCount = $this->repo->toDoCount();
+      $projectName = Project::pluck('name');
+      // dd($projects);
+      $projects = Project::with('tasks')->get();
+      return view('tasks.charts',compact('total', 'doneCount', 'toDoCount','projectName','projects'));
     }
 }
