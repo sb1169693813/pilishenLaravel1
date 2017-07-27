@@ -125,8 +125,9 @@ class TaskController extends Controller
       $doneCount = $this->repo->doneCount();
       $toDoCount = $this->repo->toDoCount();
       $projectName = Project::pluck('name');
-      // dd($projects);
+       //dd($projectName);
       $projects = Project::with('tasks')->get();
+      // dd($projects);
       return view('tasks.charts',compact('total', 'doneCount', 'toDoCount','projectName','projects'));
     }
 }

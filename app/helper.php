@@ -8,3 +8,11 @@ function taskCountArray($projects)
   }
   return $taskNum;
 }
+// rgba(179,181,198,1);
+function rand_color()
+{
+  $r = rand(0,255);
+  $g = rand(0,255);
+  $b = rand(0,255);
+  return "rgba(".$r.",".$g.",".$b.",0.5)";
+}

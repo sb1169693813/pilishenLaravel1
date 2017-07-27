@@ -1,82 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- <div class="col-md-8 col-md-offset-2"> -->
   <div class="container col-md-4">
     <canvas id="pieChart" width="300" height="300"></canvas>
+    <div id="pie-data" data-todo={{ $toDoCount }} data-done={{ $doneCount }} data-total={{ $total }}></div>
   </div>
   <div class="container col-md-4">
     <canvas id="barChart" width="300" height="300"></canvas>
+    <div id="bar-data" data-projects= {!!json_encode(taskCountArray($projects))!!}
+    data-projectname = {!!json_encode($projectName,JSON_UNESCAPED_UNICODE)!!} data-total = {{ $total }}></div>
   </div>
+  <div class="container col-md-4">
+    <canvas id="radarChart" width="300" height="300"></canvas>
+  </div>
+<!-- </div> -->
 @endsection
 
 @section('customJs')
-  <script src="{{ asset('js/Chart.min.js') }}"></script>
-  <script>
-  $(document).ready(function(){
-    var ctxPie = $("#pieChart");
-    data = {
-      datasets: [{
-      // These labels appear in the legend and in the tooltips when hovering different arcs
-        data: [{{ $toDoCount }}, {{ $doneCount }}],
-        backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)'
-        ]
-      }],
+  <script src="{{ asset('js/charts.js') }}"></script>
+  <script type="text/javascript">
+      var ctxRadar = $("#radarChart");
+      var radarData = {
+        labels: ['任务总数', '未完成', '已完成'],
+          datasets: [
+              <?php
+                $i = 0;
+                foreach ($projects as $project)
+                {
+                  $name = $project->name;
+                  $totalTasks = $project->tasks()->count();
+                  $todoTasks = $project->tasks()->where('completed',0)->count();
+                  $doneTasks = $project->tasks()->where('completed',1)->count();
+                echo "{";
+               ?>
+                label: "<?php echo $name;?>",
+                backgroundColor: "{{ rand_color() }}",
+                borderColor: "{{ rand_color() }}",
+                pointBackgroundColor: "{{ rand_color() }}",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "{{ rand_color() }}",
+                data:[<?php echo $totalTasks?>,<?php echo $todoTasks?>,<?php echo $doneTasks?>]
+                <?php
+                ($i+1)== $projects->count()  ? print "}" : print "},";
+                  $i++;
+                 ?>
+              <?php
+                }
+              ?>
 
-      labels: [
-       '未完成',
-       '已完成'
-      ]
-    };
-    var myPieChart = new Chart(ctxPie,{
-      type: 'pie',
-      data: data,
-      options: {
-        resonsive: true,
-        title:{
-          display: true,
-          text: '所有任务的完成比例（总数:{{ $total }}）'
-        },
-        legend:{
-          display:false
-        }
-      }
-    });
-    var ctxBar = document.getElementById("barChart");
-    var myBarChart = new Chart(ctxBar, {
-      type: 'bar',
-      data: {
-          labels: {!! $projectName !!},
-          datasets: [{
-              data: {!! json_encode(taskCountArray($projects)) !!},
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        resonsive: true,
-        title:{
-          display: true,
-          text: '所有任务的完成比例（总数:{{ $total }}）'
-        },
-        legend:{
-          display:false
-        }
-      }
-    });
-  });
+          ]
+        };
 
+      var myRadarChart = new Chart(ctxRadar, {
+        type: 'radar',
+        data: radarData,
+        options: {
+          resonsive: true,
+          title:{
+            display: true,
+            text: '项目之间的任务完成情况'
+          },
+          legend:{
+            display: true,
+            position: "bottom"
+          }
+        }
+      });
   </script>
 @endsection
